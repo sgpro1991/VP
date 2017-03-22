@@ -9,44 +9,6 @@ from channels.channel import Group
 
 
 
-import tornado.httpserver
-import tornado.ioloop
-import tornado.web
-import tornado.websocket
-import tornado.wsgi
-from plan.wsgi import application as plan
-
-
-
-class MyAppWebSocket(tornado.websocket.WebSocketHandler):
-    # Simple Websocket echo handler. This could be extended to
-    # use Redis PubSub to broadcast updates to clients.
-
-    clients = set()
-
-    def open(self):
-        # logging.info('Client connected')
-        MyAppWebSocket.clients.add(self)
-
-
-    def on_message(self, message):
-        # logging.log('Received message')
-        MyAppWebSocket.broadcast(message)
-        print(message)
-
-    def on_close(self):
-        # logging.info('Client disconnected')
-        if self in MyAppWebSocket.clients:
-            MyAppWebSocket.clients.remove(self)
-
-    @classmethod
-    def broadcast(cls, message):
-        for client in cls.clients:
-            client.write_message(message)
-
-
-
-
 
 
 
