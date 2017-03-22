@@ -1,0 +1,419 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load static plantags %}
+{% block content %}
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+
+
+<style>
+.recurrence-calendar{
+z-index: 9999;
+}
+.recurrence-widget{
+float: none !important;
+width: 420px;
+margin: 0 auto;
+}
+</style>
+
+<div class="content_box">
+<div class="close">
+  <span class="glyphicon glyphicon-remove close_content_box"></span>
+</div>
+<div class="content_box_append"></div>
+</div>
+
+
+
+    <div class="container container_color" style="margin:80px auto;">
+
+      <div class="row" style="margin-top: 25px;">
+      <div class="col-xs-12 col-sm-12 col-md-6" >
+
+
+
+      <label>Рубрика</label>
+      <select id="option_rubric" init="{{id_page}}" class="form-control">
+          <option class="option_sel" value=""></option>
+        {% for a in rubrics %}
+          <option class="option_sel" value="{{ a.title }}">{{ a.title }}</option>
+        {% endfor%}
+      </select>
+      <br/>
+      <label>Номер страницы</label>
+      <input type="number" id="order_init"  init="{{ id_page }}" class="form-control" value="{{ order }}"/>
+      <br/>
+      <button class="btn btn-danger delete_page" init="{{ id_page }}">Удалить страницу</button>
+
+      <br/>  <br/>
+
+
+
+      <div title="Добавить блок" class="draggable dbclick ui-widget-content ui-widget-header"  init_width="280" init_height="210" style="width:80px; height:50px;background:#a5e2c1;"  color="a5e2c1">{{ block.title }}<span title="Добавить блок" class="glyphicon glyphicon-plus-sign decor_draggable"></span></div>
+      <div title="Добавить блок" class="draggable dbclick ui-widget-content ui-widget-header"  init_width="280" init_height="210" style="width:80px; height:50px;background:#e7a695;" color="e7a695">{{ block.title }}<span title="Добавить блок" class="glyphicon glyphicon-plus-sign decor_draggable"></span></div>
+      <div title="Добавить блок" class="draggable dbclick ui-widget-content ui-widget-header"  init_width="280" init_height="210" style="width:80px; height:50px;background:#a2cde9;" color="a2cde9">{{ block.title }}<span title="Добавить блок" class="glyphicon glyphicon-plus-sign decor_draggable"></span></div>
+
+<!--
+      <label>Масштаб</label>
+      <input type="range" class="range" min="30" max="100" id="scale_cart" value="65" style="width:100%">
+
+      <div class="navbar-text navbar-left">
+          <div class="box_blocks">
+          <h5>Корзина блоков </h5>
+          {% for block in basket_blocks %}
+            <div title="{{ block.title }}" class="draggable dbclick ui-widget-content ui-widget-header"  init_width="{% widthratio block.width 1 canvas.cell_width %}" init_height="{% widthratio block.height 1 canvas.cell_height %}" style="max-width:{% widthratio block.width 1 canvas.cell_width %}px;min-width:{% widthratio block.width 1 canvas.cell_width %}px; max-height:{% widthratio block.height 1 canvas.cell_height %}px;min-height:{% widthratio block.height 1 canvas.cell_height %}px;background:{{ block.color }};">{{ block.title }}<span title="Добавить блок" class="glyphicon glyphicon-plus-sign decor_draggable"></span>
+            </div>
+          {% endfor%}
+          </div>
+        <br style="clear:both">
+          <button class="btn btn-success add_new_block" >Добавить блок</button>
+      </div>
+      -->
+<br/>
+                      <label>Прозрачность</label>
+                      <input type="range" class="range" style="width: 80%;"  min="0" max="10" id="transperent_block" value="10">
+
+
+
+
+    </div>
+
+
+    <div class="navbar-text navbar-right">
+
+
+
+                <label class="switch switch--material" title="Завершить планирование страницы">
+              <!--  <input init="335" type="checkbox" class="switch__input switch--material__input end_plan">-->
+
+
+                {% if complete == True %}
+                  <input init="{{ id_page }}" type="checkbox" class="switch__input switch--material__input end_plan" checked="checked">
+                {% else %}
+                  <input init="{{ id_page }}" type="checkbox" class="switch__input switch--material__input end_plan" >
+                {% endif %}
+
+                  <div class="switch__toggle switch--material__toggle">
+                    <div class="switch__handle switch--material__handle">
+                    </div>
+                  </div>
+                </label>
+    </div>
+
+
+
+<div class="col-xs-12 col-sm-12 col-md-6">
+
+
+
+          <div id="snaptarget"  class="news_papper ui-widget-header" style="position:relative;border:none;">
+
+            {% for page_block in page_blocks %}
+
+            <div class="draggable2  droped" title="{{ page_block.title }}"  id="{{ page_block.pk }}" style="width:{{ page_block.width }}px;height:{{ page_block.height }}px;top:{{ page_block.top }}px;left:{{ page_block.left }}px;background:{{ page_block.color }}">
+              <div id="title_{{ page_block.pk }}">{{ page_block.title }}</div>
+
+                  <!--<div class="task2">{{ page_block.task_id.task_topic }}</div>-->
+              {% if  page_block.task_id.description != None  %}
+              <div class="task_main" id="task_all_view{{ page_block.pk }}">
+                <span class="author_task">{{ page_block.task_id.name }} </span>
+                <div class="task2">{{ page_block.task_id.title }}</div>
+                <hr>
+                <span style="font-weight:bold">Описание:</span>
+                <div class="task2">{{ page_block.task_id.description }}</div>
+
+              </div>
+              {% endif %}
+
+              <div class="ad_square badge_main " id="ad_square{{ page_block.pk }}">
+                <!--<span class="badge ">см<sup>2</sup></span>-->
+                <span class="badge " title="количество знаков"></span>
+              </div>
+              <div class="label label-default panel_block">
+                  <!--<div class="remove"  >-->
+                      <span init="{{ page_block.pk }}" title="Удалить блок" class="glyphicon glyphicon-trash remove_block"></span>
+                  <!--</div>-->
+                  <div class="content_block">
+                  {% if page_block.content_id != None%}
+                    <span init="{{ page_block.pk }}" title="Контент" class="glyphicon glyphicon-file show_content" b_width="{{ page_block.width }}" b_height="{{ page_block.height }}"></span>
+                  {% endif %}
+                  </div>
+              </div>
+            </div>
+
+
+            {% endfor%}
+
+          </div>
+</div>
+</div>
+          <br/>
+
+
+
+
+      <br style="clear:both">
+      <br style="clear:both">
+
+
+      <div id="dialog3" style="display:none">
+          <div class="navbar-text navbar-left">
+            <div class="init_canvas">
+              <div id="different_block"></div>
+            </div>
+          </div>
+          <div class="navbar-text navbar-right">
+            <input id="create_block_title" class="form-control" type="text" placeholder="Название блока"><br/>
+            <input id="create_block_width" class="form-control" type="number" placeholder="Ширина блока"><br/>
+            <input id="create_block_height" class="form-control" type="number" placeholder="Высота блока"><br/>
+            <input id="create_block_color" class="form-control" type="color" placeholder="Цвет блока"><br/>
+          </div>
+      </div>
+
+
+
+
+
+<!--
+      <div id="draggable" class="draggable ui-widget-content">
+        <p>Default (snap: true), snaps to all other draggable elements</p>
+      </div>
+
+      <div id="draggable2" class="draggable ui-widget-content">
+        <p>I only snap to the big box</p>
+      </div>
+
+      <div id="draggable3" class="draggable ui-widget-content">
+        <p>I only snap to the outer edges of the big box</p>
+      </div>
+
+      <div id="draggable4" class="draggable ui-widget-content">
+        <p>I snap to a 20 x 20 grid</p>
+      </div>
+
+      <div id="draggable5" class="draggable ui-widget-content">
+        <p>I snap to a 80 x 80 grid</p>
+      </div>
+
+-->
+
+
+
+<!--
+{% for a in blocks %}
+  <div class="ui-state-default drg" id="{{ a.id }}" style="max-width:{{ a.width }}px;min-width:{{ a.width }}px; max-height:{{ a.height }}px;min-height:{{ a.height }}px;">{{ a.title }}</div>
+{% endfor%}
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div> <!-- /container -->
+
+  <div class="hidden_block">
+    <p style="color:#fff">Esc выход</p>
+
+
+    <div class="box_cke">
+      <div id="accordion">
+        <h3>Блок</h3>
+        <div class="block_param_box">
+          <div class="block_param"></div>
+        </div>
+
+        <h3>Прикрепить Задачу в блок</h3>
+        <div class="box">
+
+          <div class="date-selector__period" style="margin: 0 auto;position: relative;display: block;">
+            <span class="date-range-selector i-bem" data-bem="{&quot;date-range-selector&quot;:{}}">
+                <button class="button button_theme_normal button_size_s date-range-selector__selector-button i-bem" data-bem="{&quot;button&quot;:{}}" role="button" type="button" autocomplete="off">
+                  <span class="button__text"><span class="date-range-selector__button-content-wrapper">
+                    <span class="date-range-selector__button-content"><span class="icon__calendar date-range-selector__calendar-img icon"></span></span></span></span>
+                </button>
+              </span>
+            </div>
+
+
+
+
+
+        <div class="checkbox_panel_deb">
+              <div class="row">
+                <h5><label class="checkbox_1 checkbox--material_1">
+  <input type="checkbox" id="allocation_rubric" class="checkbox__input_1 checkbox--material__input_1">
+  <div class="checkbox__checkmark_1 checkbox--material__checkmark_1"></div>
+Снять выделение </label></h5>
+          {% for rubric in rubrics_all %}
+
+            {% if rubric.sortir == 1 %}
+
+
+                <div class="col-xs-2 col-sm-2 col-md-2" style="background: bisque;">
+                  <label class="checkbox" style="font-size:10px;">
+                    <input type="checkbox" class="checkbox__input deb_check" init="{{rubric.id}}" checked="checked" value="{{rubric.title}}">
+                    <div class="checkbox__checkmark">
+                    </div>
+                    <br>
+                    {{rubric.title}}
+                  </label>
+                </div>
+
+
+            {% else %}
+
+              <div class="col-xs-2 col-sm-2 col-md-2 about_rubrics" >
+                <label class="checkbox" style="font-size:10px;">
+                  <input type="checkbox" class="checkbox__input deb_check" init="{{rubric.id}}" checked="checked" value="{{rubric.title}}">
+                  <div class="checkbox__checkmark">
+                  </div>
+                  <br>
+                  {{rubric.title}}
+                </label>
+              </div>
+
+            {% endif %}
+
+          {% endfor %}
+
+          </div>
+          <br>
+          <div class="btn btn-primary about_rubrics_btn">показать|скрыть рубрики</div>
+        </div>
+          <br>
+
+
+
+          <div class="plan_task_box"></div>
+          <br>
+        </div>
+
+
+          <h3>Tackep</h3>
+          <div class="box_iframe">
+          <iframe width="100%" height="100%" style="border:none"  id="iframe_a" name="iframe_a"></iframe>
+          </div>
+
+
+        <h3>Добавить Контент</h3>
+          <div>
+            <textarea id="ckeditor" name="editor"></textarea>
+            <br/>
+            <button class="btn btn-success form-control save_content">Сохранить</button>
+         </div>
+
+        <!--  <h3>Система планирования</h3>
+          <div>
+            <iframe src="http://plan.oblgazeta.ru/" id="plan_frame" width="100%" height="600px">
+            </iframe>
+
+          </div>-->
+        <h3 class="shwduller_box">Периодичность</h3>
+        <div class="shwduller_box">
+
+            <form action="/scheduler/add/" method="post" >
+              {% csrf_token %}
+                <input id="scheduler_id_block" name="scheduler_id_block" type="hidden"/>
+              {% for a in rubrics %}
+                <input type="checkbox" name="scheduler_rubric" value="{{ a.title }}" /> {{ a.title }}
+              {% endfor%}
+                <br/><br/>
+
+                {{ form.media }}
+                {{ form }}
+
+                <br/>
+
+              <button  class="btn btn-success form-control" type="submit">Создать</button>
+           </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!--   ПАСХАЛКА >
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  <div class="pashal_box" style="
+  //background: snow;
+  position: fixed;
+  top: 20%;
+  /* left: 33%; */
+  text-align: center;
+  width: 100%;
+  z-index: 99999;
+  padding: 60px;
+  border-radius: 40px;">
+
+
+  <button class="btn-pashal2" style="display:block;margin:0 auto;">х</button>
+
+        <h1 class="pashal_text"style="font-family: 'Lobster', cursive;font-size: 150px;color: pink;">
+          C 8 марта
+        </h1>
+        <span style="font-size:40px;font-family: 'Lobster', cursive;">Поздравляем от всей души  вас Уважаемые дамы</span>
+        <br>
+        <button class="btn btn-pashal btn-primary">СЮРПРИЗ НАЖМИ !!!!</button>
+        <button class="btn btn-pashal2 btn-danger">Пошутили и хватит =)</button>
+      </div>
+  </div>
+<!-- ПАСХАЛКА КОНЕЦ-->
+
+
+        <script src="{% static "/tmp/yandex_element/js/jquery.js" %}"></script>
+
+        <script>window.jQuery || document.write('<script src="{% static "/tmp/js/vendor/jquery-1.11.2.min.js" %}"><\/script>')</script>
+
+        <!--<script src="{% static "/tmp/js/vendor/bootstrap.min.js" %}"></script>-->
+
+        <script src="{% static "/tmp/ckeditor/ckeditor.js" %}"></script>
+        <script src="{% static "/tmp/ckeditor/adapters/jquery.js" %}"></script>
+
+
+        <script>
+              var rubric = "{{ rubric }}"
+              var cell_width = {{ canvas.cell_width }}
+              var cell_height = {{ canvas.cell_height }}
+              var strip = {{ canvas.strip_count }}
+              var row = {{ canvas.row_count }}
+              var date_number = "{{ date_number|date:'d.m.Y'  }}"
+        </script>
+
+        <script src="{% static '/tmp/js/main.js' %}?v{{version}}"></script>
+          <!-- HOLYDAY -->
+            <script src="{% static "/tmp/js/holiday.js" %}?v{{version}}"></script>
+          <!-- HOLYDAY -->
+
+    </body>
+</html>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static "/tmp/css/bootstrap.min.css" %}">
+  <style>
+   .draggable { width: 90px; height: 80px; padding: 5px; background: #ccc;float: left;text-align: center;margin: 0 10px 10px 0; font-size: .9em; }
+   .ui-widget-header p, .ui-widget-content p { margin: 0; }
+
+
+    .box_blocks{
+      float: left;
+    }
+   </style>
+  <link rel="stylesheet" href="{% static "/tmp/css/bootstrap-theme.min.css" %}">
+  <link rel="stylesheet" href="{% static "/tmp/css/bootstrap-datetimepicker.min.css" %}">
+  <link rel="stylesheet" href="{% static "/tmp/css/main.css" %}">
+</head>
+
+<div style="width:500px;margin:5% auto;padding:10px;background:#fff;">
+<label>Планирование</label>
+<form action="/users/auth/"  method="post">
+{% csrf_token %}
+<input type="text" name="login" class="form-control" placeholder="Логин"><br/>
+<input type="password" name="password" class="form-control" placeholder="Пароль"/><br/>
+<button class="btn btn-success form-control">Войти</button>
+
+<br/><br/>
+<a href="/number/">  Все номера </a>
+</form>
+</div>
+
+<html>

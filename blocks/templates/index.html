@@ -1,0 +1,134 @@
+{% load static %}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="{% static "/tmp/css/bootstrap.min.css" %}">
+        <style>
+         .draggable { width: 90px; height: 80px; padding: 5px; background: #ccc;float: left;text-align: center;margin: 0 10px 10px 0; font-size: .9em; }
+         .ui-widget-header p, .ui-widget-content p { margin: 0; }
+
+
+          .news_papper{
+            margin: 0 auto;
+            width: 660px;
+            height: 740px;
+          }
+
+          .box_blocks{
+            float: left;
+            position: relative;
+          }
+         </style>
+        <link rel="stylesheet" href="{% static "/tmp/css/bootstrap-theme.min.css" %}">
+        <link rel="stylesheet" href="{% static "/tmp/css/main.css" %}">
+
+
+
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+
+        <script src="{% static "/tmp/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %}"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Обл. ГАЗЕТА</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                    <li><a href="/number/">Номер</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+              </div>
+            </div>
+
+
+
+    <div class="container" style="margin:80px auto;">
+
+
+      <div id="snaptarget" class="news_papper ui-widget-header" style="position:relative">
+      </div>
+
+      <br style="clear:both">
+      <br style="clear:both">
+
+      <div class="box_blocks">
+      {% for a in blocks %}
+        <div class="draggable ui-widget-content ui-widget-header" id="{{ a.id }}" style="max-width:{{ a.width }}px;min-width:{{ a.width }}px; max-height:{{ a.height }}px;min-height:{{ a.height }}px;background:{{a.color}};">{{ a.title }}</div>
+      {% endfor%}
+      </div>
+
+
+
+<!--
+      <div id="draggable" class="draggable ui-widget-content">
+        <p>Default (snap: true), snaps to all other draggable elements</p>
+      </div>
+
+      <div id="draggable2" class="draggable ui-widget-content">
+        <p>I only snap to the big box</p>
+      </div>
+
+      <div id="draggable3" class="draggable ui-widget-content">
+        <p>I only snap to the outer edges of the big box</p>
+      </div>
+
+      <div id="draggable4" class="draggable ui-widget-content">
+        <p>I snap to a 20 x 20 grid</p>
+      </div>
+
+      <div id="draggable5" class="draggable ui-widget-content">
+        <p>I snap to a 80 x 80 grid</p>
+      </div>
+
+-->
+
+
+
+<!--
+{% for a in blocks %}
+  <div class="ui-state-default drg" id="{{ a.id }}" style="max-width:{{ a.width }}px;min-width:{{ a.width }}px; max-height:{{ a.height }}px;min-height:{{ a.height }}px;">{{ a.title }}</div>
+{% endfor%}
+-->
+
+
+
+    </div> <!-- /container -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <script>window.jQuery || document.write('<script src="{% static "/tmp/js/vendor/jquery-1.11.2.min.js" %}"><\/script>')</script>
+
+        <script src="{% static "/tmp/js/vendor/bootstrap.min.js" %}"></script>
+
+        <script src="{% static "/tmp/js/main.js" %}"></script>
+
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+    </body>
+</html>

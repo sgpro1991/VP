@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<script>
+
+var socket = new WebSocket("ws://sg.vp.oblgazeta.ru:6379");
+socket.onopen = function() {
+  alert("Соединение установлено.");
+};
+
+socket.onclose = function(event) {
+  if (event.wasClean) {
+    alert('Соединение закрыто чисто');
+  } else {
+    alert('Обрыв соединения'); // например, "убит" процесс сервера
+  }
+  alert('Код: ' + event.code + ' причина: ' + event.reason);
+};
+
+socket.onmessage = function(event) {
+  alert("Получены данные " + event.data);
+};
+
+socket.onerror = function(error) {
+  alert("Ошибка " + error.message);
+};
+
+</script>
+
+
+<div class="container container_color" style="margin:100px  auto;">
+
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <ul class="nav navbar-nav">
+            <li><a href="#">Мои документы</a></li>
+            <li><a href="#">Входящие <span class="badge">42</span></a></li>
+            <li><a href="#">Поиск</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <h1> 12312312 3112312 </h1>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,201 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+
+
+
+.btn{
+outline: none !important;
+}
+
+
+.hidden_block{
+width: 100%;
+top:0;
+height: 100%;
+overflow: auto;
+position: fixed;
+z-index: 9999;
+display: none;
+text-align: center;
+background: rgba(0,0,0,0.5)
+}
+
+
+.block_param{
+width: 300px;
+margin: 0 auto;
+}
+
+
+
+.task{
+position: relative;
+  width: 200px;
+  height: auto;
+  overflow: auto;
+  float: left;
+  border: 1px solid #ccc;
+  min-height: 180px;
+  max-height: 180px;
+  font-size: 10px;
+  padding: 15px;
+  background: #fff;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.task2{
+font-size: 9px;
+}
+
+
+.task_one{
+float: none !important;
+margin: 0 auto;
+box-shadow: 0 0 10px lightgreen;
+}
+
+.draggable2{
+//transition: all 0.1s;
+}
+
+.draggable2 .glyphicon:hover{
+opacity: 0.5;
+cursor: pointer;
+}
+
+.remove_block{
+position: absolute;
+right: 1px;
+top: 1px;
+}
+
+
+body{
+background: #dee1e5;
+}
+
+.container_color{
+background: #fff;
+padding: 20px;
+}
+
+.task:hover{
+cursor: pointer;
+opacity: 0.5;
+}
+
+.main_padding{
+padding: 0;
+}
+
+.timepicker{
+margin: 20px 0;
+}
+
+.collapse{
+display: block !important;
+visibility: visible !important;
+}
+
+.plan_task_box{
+  max-height: 700px;
+  background: #f4f4f4 !important;
+}
+
+.author{
+color: darkorange;
+}
+
+.box_cke{
+width: 50%;
+margin: 10px auto;
+height:90%;
+
+}
+.iframes-inaccessible{
+height:90%;
+}
+.iframe_class{
+  width: 100%;
+  margin: 10px auto;
+  height:100%;
+}
+
+.draggable2{
+position: absolute !important;
+
+}
+
+.droped{
+border: 1px solid #888;
+}
+
+.draggable { width: 90px; height: 80px; padding: 5px; background: #ccc;float: left;text-align: center;margin: 0 10px 10px 0; font-size: .9em; }
+.ui-widget-header p, .ui-widget-content p { margin: 0; }
+
+
+ .news_papper{
+   margin: 0 auto;
+  // width: 660px;
+  // height: 740px;
+  background: url('/static/tmp/img/transp.png') !important;
+ }
+
+
+.mini_block{
+float: left;
+
+}
+
+
+.init_canvas{
+background: url('/static/tmp/img/transp.png') !important;
+}
+
+
+.sub_list{
+color: #666 !important;
+}
+
+
+.dbclick:hover{
+opacity: 0.8;
+cursor: pointer;
+}
+
+
+.draggable2:active{
+cursor: move;
+}
+
+.add_new_block{
+margin: 10px 0;
+}
+
+.draggable2{
+text-align: center;
+}
+
+.navbar-text{
+margin: 0 !important;
+}
+
+
+ .box_blocks{
+   padding: 10px;
+   text-align: center;
+   width: 400px;
+   background: #fff;
+   border-radius: 5px;
+   display: inline-block;
+   height: 500px;
+   overflow: auto;
+   border: 1px solid #ccc;
+ }

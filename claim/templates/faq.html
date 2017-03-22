@@ -1,0 +1,47 @@
+{% load static plantags %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Accordion - Default functionality</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#accordion" ).accordion({
+      active: false,
+      collapsible: true,
+    });
+  } );
+  </script>
+  <style>
+    body{
+      background: #ddd;
+    }
+    .content{
+      width: 70%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="content">
+    <h1>Часто задоваемые вопросы</h1>
+<div id="accordion">
+
+  {% for a in questions %}
+    <h3>{{ a.title }}</h3>
+    <div>
+        {{ a.text|safe }}
+    </div>
+  {% endfor%}
+
+</div>
+</div>
+
+
+</body>
+</html>

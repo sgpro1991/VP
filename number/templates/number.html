@@ -1,0 +1,919 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+      <!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="{% static "/tmp/css/bootstrap.min.css" %}">
+
+        <link rel="stylesheet" href="{% static "/tmp/css/bootstrap-theme.min.css" %}">
+        <link rel="stylesheet" href="{% static "/tmp/css/main.css" %}?v{{version}}">
+      <link rel="stylesheet" href="{% static "/tmp/yandex_element/css/style.css" %}">
+
+
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+
+        <script src="{% static "/tmp/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %}"></script>
+
+
+    </head>
+    <body>
+
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <div class="container">
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+
+                            <!-- <a class="navbar-brand" href="/number/">Все номера</a> -->
+                      </div>
+                      <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                          <li><a href="/number/" title="Все номера" style="color: #fff;font-size: 20px;" ><span class="glyphicon glyphicon-th-list"></span></a></li>
+                          <!-- <li><a href="/number/?id=2016-12-06">Номер</a></li> -->
+                          <li><a href="/claim/"><span title="Система добавления задач" style="color: #fff;font-size: 20px;" class="glyphicon glyphicon-align-justify"></span></a></li>
+
+                            <li><span style="color: #ccc;font-size: 20px;padding: 15px;" class="glyphicon glyphicon-cog show_panel_settings"></span></li>
+
+
+                            <li style="padding: 15px 15px 0 0;color: #fff;">
+                              <!--<label>Редактировать номер</label>-->
+
+
+                               <!--<label class="switch" style="position:relative;top:-5px;left:20px;" title="Завершить планирование страницы">
+                                   <input id="admin_switch"  type="checkbox" class="switch__input">
+                                 <div class="switch__toggle">
+                                   <div class="switch__handle"></div>
+                                 </div>
+                               </label>-->
+
+
+                               <label style="right: -10px;top: 0px;position:relative" class="switch switch--material" title="Режим редактирования номера">
+                               <input id="admin_switch"  type="checkbox" class="switch__input switch--material__input ">
+                                 <div class="switch__toggle switch--material__toggle">
+                                   <div class="switch__handle switch--material__handle">
+                                   </div>
+                                 </div>
+                               </label>
+
+
+
+                            </li>
+                          <li style="padding: 15px 0 0 15px;color: #fff;">
+
+                            <div class="block_all_view article_block add_block_all_view show_adm" color="a5e2c1">
+                                    <span class="glyphicon glyphicon-plus "></span>
+                            </div>
+
+                            <div class="block_all_view main_block add_block_all_view show_adm" color="e7a695">
+                                    <span class="glyphicon glyphicon-plus "></span>
+                            </div>
+
+
+                            <div class="block_all_view secretar_block add_block_all_view show_adm" color="a2cde9">
+                                    <span class="glyphicon glyphicon-plus "></span>
+                            </div>
+
+
+                          </li>
+                        </ul>
+
+                        {% if id_number.id %}<li><a href="/number/number_view/?id={{ id_number.id }}&resolutions=100">Номер</a></li>{% endif %}
+                        {% if login %}
+                        <div class="ugol"><a href="/api/exit/"><span title="Выйти" style="color: #f00;font-size: 20px;" class="glyphicon glyphicon-off"></span></a></div>
+                        {% else %}
+                        <div class="ugol"><a href="/number/login/"><span title="Войти" style="color: green;font-size: 20px;" class="glyphicon glyphicon-upload"></span></a></div>
+                        {% endif %}
+                      </div><!--/.nav-collapse -->
+                    </div>
+                    <div class="cart_all_view"></div>
+                  </div>
+
+
+
+                  <div class="hidden_block">
+                    <p style="color:#fff">Esc выход</p>
+                    <div class="box_cke">
+                      <div id="accordion">
+                        <h3>Блок</h3>
+                        <div class="block_param_box">
+                          <div class="block_param"></div>
+                        </div>
+
+                        <h3>Прикрепить Задачу в блок</h3>
+                        <div class="box">
+                          <div class="date-selector__period" style="margin: 0 auto;position: relative;display: block;">
+                            <span class="date-range-selector i-bem" data-bem="{&quot;date-range-selector&quot;:{}}">
+                                <button class="button button_theme_normal button_size_s date-range-selector__selector-button i-bem" data-bem="{&quot;button&quot;:{}}" role="button" type="button" autocomplete="off">
+                                  <span class="button__text"><span class="date-range-selector__button-content-wrapper">
+                                    <span class="date-range-selector__button-content"><span class="icon__calendar date-range-selector__calendar-img icon"></span></span></span></span>
+                                </button>
+                              </span>
+                            </div>
+
+
+                            <div class="checkbox_panel_deb">
+                                  <div class="row">
+                                    <h5><label class="checkbox_1 checkbox--material_1">
+                      <input type="checkbox" id="allocation_rubric" class="checkbox__input_1 checkbox--material__input_1">
+                      <div class="checkbox__checkmark_1 checkbox--material__checkmark_1"></div>
+                    Снять выделение </label></h5>
+                              {% for rubric in rubrics_all %}
+
+                                {% if rubric.sortir == 1 %}
+
+
+                                    <div class="col-xs-2 col-sm-2 col-md-2" style="background: bisque;">
+                                      <label class="checkbox" style="font-size:10px;">
+                                        <input type="checkbox" class="checkbox__input deb_check" init="{{rubric.id}}" checked="checked" value="{{rubric.title}}">
+                                        <div class="checkbox__checkmark">
+                                        </div>
+                                        <br>
+                                        {{rubric.title}}
+                                      </label>
+                                    </div>
+
+
+                                {% else %}
+
+                                  <div class="col-xs-2 col-sm-2 col-md-2 about_rubrics" >
+                                    <label class="checkbox" style="font-size:10px;">
+                                      <input type="checkbox" class="checkbox__input deb_check" init="{{rubric.id}}" checked="checked" value="{{rubric.title}}">
+                                      <div class="checkbox__checkmark">
+                                      </div>
+                                      <br>
+                                      {{rubric.title}}
+                                    </label>
+                                  </div>
+
+                                {% endif %}
+
+                              {% endfor %}
+
+                              </div>
+                              <br>
+                              <div class="btn btn-primary about_rubrics_btn">показать|скрыть рубрики</div>
+                            </div>
+                              <br>
+
+                          <div class="plan_task_box"></div>
+                        </div>
+
+                        <h3>Tackep</h3>
+                        <div class="box_iframe">
+
+
+
+
+                         <iframe width="100%" height="100%" style="border:none" id="iframe_a" name="iframe_a"></iframe>
+
+
+
+
+                        </div>
+
+
+                        <h3>Добавить Контент</h3>
+                          <div>
+                            <textarea id="ckeditor" name="editor"></textarea>
+                            <br/>
+                            <button class="btn btn-success form-control save_content">Сохранить</button>
+                         </div>
+
+                        <!--  <h3>Система планирования</h3>
+                          <div>
+                            <iframe src="http://plan.oblgazeta.ru/" id="plan_frame" width="100%" height="600px">
+                            </iframe>
+
+                          </div>-->
+
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+<br/>
+<br/><br/>
+
+      <div class="content_box">
+      <div class="close">
+        <span class="glyphicon glyphicon-remove close_content_box"></span>
+      </div>
+      <div class="content_box_append"></div>
+      </div>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+        <h2 class="panel panel-default zag_number" style="text-align:center;">
+
+            {{ number.date | date:"j E Y" }} года, {{ number.date | date:"l" | lower }}
+            {% if numdate %}
+            <span class="label label-default" style="font-size:15px;">№{{ numdate.short_num }} ({{ numdate.full_num }})</span>
+
+            {% endif %}
+
+            {% if number.complete == True %}
+              <div class="check_indicator">
+                <span class="glyphicon glyphicon-ok-sign" title="Номер запланирован" style="font-size: 25px;position: absolute;top: 2px;margin: 0 20px;color: green;"></span>
+              </div>
+            {% else %}
+              <div class="check_indicator">
+                <span class="glyphicon glyphicon-minus-sign" title="Номер не запланирован" style="font-size: 25px;position: absolute;top: 2px;margin: 0 20px;color: #f00;"></span>
+              </div>
+            {% endif %}
+
+        </h2>
+
+
+
+
+<div style="margin:30px 10px">
+
+  <!--<a href="/number/" style="float: left;">
+      <button class="btn btn-default">
+          <span style="display: inline-block; transform: scaleX(-1); filter: FlipH; /* IE 6-7-8 */">&#x27aa;</span>
+           Все номера
+      </button>
+  </a>-->
+
+    <div class="panel_settings" >
+      <label>Прозрачность</label>
+      <input type="range" class="range"  min="0" max="10" id="transperent_block" value="10">
+      <label>Масштаб</label>
+
+      <!--<input type="range" min="0" max="100" id="resolution_range"  style="width:20%">-->
+
+      <select id="resol" class="form-control">
+        <option value="150">150</option>
+        <option value="120">120</option>
+        <option value="100" selected>100</option>
+        <option value="80">80</option>
+        <option value="60">60</option>
+        <!--<option value="40">40</option>
+        <option value="20">20</option>-->
+      </select>
+<br/>
+
+
+    </div>
+    <br/>
+    <br/>
+    <br/>
+
+
+      <div class="pages_box">
+      {% for page in pages %}
+      <div init="{{ page.id }}" class="papper ui-widget-header ui-droppable" style="position:relative;display:inline-block;float:left;margin:20px;border:none;  box-shadow: 0 0 0px 1px #888;border-radius: 3px;">
+      <a style="position:absolute;top:-40px;right:0;z-index:999;" href="/block/?id={{ page.id }}"><span title="редактировать" class="btn btn-default glyphicon glyphicon-pencil"></span></a>
+      <span class="zag" style="position:absolute;top: -20px;"><!--{{ page.id }} {{ page.title }}--> <span class="badge" style="background:#000;font-size:14px;">{{ page.order_init }}</span> {{ page.rubric.title }}</span>
+        <span class="separator_page"></span>
+
+          <div class="indicator_complate show_adm" init="{{ page.id }}" style="position: absolute;top: -32px;right: 50px;font-size: 18px;">
+            <!--<span class="glyphicon glyphicon-ok-circle"></span>
+            <label style="right: 0px;top: -5px;" class="switch" title="Завершить планирование страницы">
+                <input init="{{ page.id }}" type="checkbox" class="switch__input " checked="checked">
+              <div class="switch__toggle">
+                <div class="switch__handle"></div>
+              </div>
+            </label>-->
+            <label style="right: 0px;top: -2px;" class="switch switch--material" title="Завершить планирование страницы">
+            {% if page.complete == True %}
+            <input init="{{ page.id }}" type="checkbox" class="switch__input switch--material__input end_plan" checked="checked">
+            {% else %}
+            <input init="{{ page.id }}" type="checkbox" class="switch__input switch--material__input end_plan" >
+            {% endif %}
+              <div class="switch__toggle switch--material__toggle">
+                <div class="switch__handle switch--material__handle">
+                </div>
+              </div>
+            </label>
+
+          </div>
+
+
+
+
+
+
+      </div>
+      {% endfor%}
+      </div>
+
+
+
+<!-- ПАСХАЛКА sss sss>
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<div class="pashal_box" style="
+//background: snow;
+position: fixed;
+top: 20%;
+/* left: 33%; */
+text-align: center;
+width: 100%;
+z-index: 99999;
+padding: 60px;
+border-radius: 40px;">
+
+<button class="btn-pashal2" style="display:block;margin:0 auto;">х</button>
+
+      <h1 class="pashal_text"style="font-family: 'Lobster', cursive;font-size: 150px;color: pink;">
+        C 8 марта
+      </h1>
+      <span style="font-size:40px;font-family: 'Lobster', cursive;">Поздравляем от всей души  вас Уважаемые дамы</span>
+      <br>
+      <button class="btn btn-pashal btn-primary">СЮРПРИЗ НАЖМИ !!!!</button>
+      <button class="btn btn-pashal2 btn-danger">Пошутили и хватит =)</button>
+    </div>
+</div>
+-->
+
+
+
+
+
+
+
+
+
+        <script src="{% static "/tmp/yandex_element/js/jquery.js" %}"></script>
+
+      <!--  <script src="{% static "/tmp/js/vendor/bootstrap.min.js" %}"></script>-->
+
+        <script src="{% static "/tmp/ckeditor/ckeditor.js" %}"></script>
+        <script src="{% static "/tmp/ckeditor/adapters/jquery.js" %}"></script>
+
+        <script src="{% static "/tmp/js/main.js" %}?v{{version}}"></script>
+        <script src="{% static "/tmp/js/holiday.js" %}?v{{version}}"></script>
+
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+        <script src="{% static "/tmp/js/touch.js" %}"></script>
+        <script src="{% static "/tmp/js/device.js" %}"></script>
+
+        <script src="{% static "/tmp/yandex_element/js/calendar.js" %}"></script>
+
+<script>
+function INDICATOR_ALL_VIEW(){
+  $('.indicator_complate').on('click',function(){
+    /*  var check;
+    if($(this).hasClass('on')){
+      check = 1;
+
+      $(this).removeClass('on')
+      $(this).addClass('off')
+      $(this).html('<span class="glyphicon glyphicon-remove-circle"></span>')
+    }else {
+      check = 0;
+      $(this).removeClass('off')
+      $(this).addClass('on')
+      $(this).html('<span class="glyphicon glyphicon-ok-circle"></span>')
+    }
+
+
+    alert(check)
+*/
+  })
+}
+
+
+
+
+
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+            function(m,key,value) {
+              vars[key] = value;
+            });
+            return vars;
+          }
+
+          var res = getUrlVars()['resolutions']
+
+          $('#resol').val(res)
+          $('#resol').change(function(){
+              var replace = $(this).val()
+              var url = window.location.href
+              var curent = getUrlVars()['resolutions']
+              location.href = url.replace(curent,replace)
+          })
+
+          {% for a in canvas %}
+              var cell_width = {{ a.cell_width }}
+              var cell_height = {{ a.cell_height }}
+              var strip = {{ a.strip_count }}
+              var row = {{ a.row_count }}
+          {% endfor %}
+          var date_number = "{{ date_number|date:'d.m.Y'  }}"
+
+          var midle_val_height = row/2*cell_height
+
+
+
+        </script>
+
+
+
+
+
+<script>
+
+
+
+function MAIN_RESOLUTION(res){
+
+$('#resolution_range').val(res)
+
+var width = $('.papper').width(), height = $('.papper').height()
+
+var blocks_param = []
+
+$('.droped').each(function(k,v){
+//  console.log(k)
+  var width_b = $(this).width(), height_b = $(this).height()
+  blocks_param.push(width_b)
+  //$(this).css({'max-width':width*res/100,'max-height':height*res/100,'min-width':width*res/100,'min-height':height*res/100})
+  //alert(blocks_param)
+})
+
+
+
+$('#resolution_range').on('input change',function(){
+      var res = $(this).val()
+
+
+    $('.papper').each(function(){
+      $(this).css({'width':width*res/100,'height':height*res/100})
+    })
+
+    $('.droped').each(function(k,v){
+      //console.log(v)
+      var width = $(this).width(), height = $(this).height()
+      $(this).css({'max-width':width*res/100,'max-height':height*res/100,'min-width':width*res/100,'min-height':height*res/100})
+    })
+
+})
+
+
+}
+
+
+
+function DRAG_IN_ALL_VIEW(){
+
+$('.droped').off('click')
+$('.droped').addClass('imp_show_content')
+$('.droped').addClass('draggable2')
+
+function DRG(){
+
+     $('.droped').draggable({
+         disabled: false,
+         snap: ".ui-widget-header",
+         //revert: 'invalid'
+         zIndex: 99,
+         scroll: false,
+         start:function(event,ui){
+            $(this).addClass('imp_show_content')
+            a =  $(this).parent().attr('init')
+            var offset = $(this).offset();
+
+            var relativeX = (event.pageX - offset.left);
+            var relativeY = (event.pageY - offset.top);
+            //console.log(relativeX,relativeY)
+            DRP($(this).parent().attr('init'),$(this),relativeX,relativeY)
+         },
+         stop:function(event,ui){
+           $.ajax({
+             url:'/block/change_position/?id='+$(this).attr('init')+'&left='+parseInt($(this).css('left'))+'&top='+parseInt($(this).css('top'))+'&param=0',
+             type:'get',
+             success:function(data){
+               //alert(data)
+             }
+           })
+            //alert()
+            setTimeout(function(){
+              $('.droped').removeClass('imp_show_content')
+            },100)
+
+         }
+
+     })
+}
+
+DRG()
+RESIZABLE($('.droped'))
+
+  if($('#admin_switch').is(':checked')){
+    ADD_TEXT()
+  }
+
+ADD_BLOCK_ALL_VIEW()
+
+  function DRP(arg,arg2,x,y){
+
+    $('.papper').droppable({
+        greedy: true,
+        drop: function( event, ui ) {
+        //console.log(event,ui)
+        var a = $(this)
+          if (arg != a.attr('init')){
+
+            $('.droped').each(function(){
+              if($(this).attr('init') == arg2.attr('init')){
+                $(this).remove()
+              }
+            })
+
+            $('.papper').each(function(){
+              if($(this).attr('init') == a.attr('init')){
+              //console.log(arg2.html())
+              var offset = $(this).offset();
+
+              var relativeX = (event.pageX - offset.left);
+              var relativeY = (event.pageY - offset.top);
+
+
+                $(this).append('<div class="droped car about_droped show_content "'+
+                ' init="'+arg2.attr('init')+'" id="'+arg2.attr('init')+'" b_width="'+arg2.css('width')+'" b_height="'+arg2.css('height')+'"'+
+                ' style="border:none;position: absolute; width: '+arg2.css('width')+'; height: '+arg2.css('height')+'; top: '+(relativeY-y)+'px; left:'+(relativeX-x)+'px; background: '+arg2.css('background')+'; z-index: 20;">'+arg2.html()+'</div>')
+
+                $('.show_content').off('click')
+                $('.droped').addClass('imp_show_content')
+                $('.droped').addClass('draggable2')
+                  SHOW_CONTENT()
+                if($('#admin_switch').is(':checked')){
+                  ADD_TEXT()
+                  }
+                  RESIZABLE($('.droped'))
+
+                  var ya = parseInt(relativeY-y)
+                  var xa = parseInt(relativeX-x)
+
+                  //console.log(xa,ya)
+                  $.ajax({
+                    url:'/block/change_position/?id='+arg2.attr('init')+'&page='+a.attr('init')+'&left='+xa+'&top='+ya+'&param=1',
+                    type:'get',
+                    success:function(data){
+                      //alert(data)
+                    }
+                  })
+              }
+              DRG()
+            })
+          }
+        }
+      })
+  }
+}
+
+
+function DRAG_OFF(){
+ $('.droped').draggable({
+  disabled: true
+ })
+$('.droped').removeClass('imp_show_content')
+$('.draggable2').off('dblclick,click')
+$('.draggable2').off('click')
+ SHOW_CONTENT()
+$('.add_block_all_view').off('click')
+$('.droped').removeClass('draggable2')
+$('.droped').resizable({
+  disabled: true
+})
+}
+
+
+
+function ADD_BLOCK_ALL_VIEW(){
+  $('.add_block_all_view').off('click')
+  $('.add_block_all_view').on('click',function(){
+  var color = $(this).attr('color')
+
+  //alert(color)
+  $.ajax({
+    url:'/block/add_block_all_view/?id='+$('.papper').attr('init')+'&color='+color,
+    success:function(data){
+
+    //  alert(data)
+      //$('.cart_all_view').empty()
+      $('.cart_all_view').append('<div class="draggable2 droped about_droped show_content" b_width="280" b_height="210" init="'+data+'" id="'+data+'" style="position:absolute;width:280px; height:210px;top:140px;left:0px;background:#'+color+'"><span id="title_'+data+'" style="font-size:100%"></span><br><div class="label label-default panel_block"></div></div>')
+      DRAG_IN_ALL_VIEW()
+    }
+  })
+
+
+
+
+  //  $.ajax({
+
+    //})
+  })
+}
+
+
+function CHECK_INDICATOR(){
+
+  $('.end_plan').on('change',function(){
+    mass = []
+    $('.end_plan').each(function(){
+
+      if(!$(this).is(":checked")){
+          mass.push('false')
+      }else{
+          mass.push('true')
+      }
+
+    })
+
+      //alert($.inArray("false", mass ))
+
+      if($.inArray("false", mass) == -1){
+
+        $('.check_indicator').html('<span class="glyphicon glyphicon-ok-sign" title="Номер запланирован" style="font-size: 25px;position: absolute;top: 2px;margin: 0 20px;color: green;"></span>')
+
+      }else{
+        $('.check_indicator').html('<span class="glyphicon glyphicon-minus-sign" title="Номер не запланирован" style="font-size: 25px;position: absolute;top: 2px;margin: 0 20px;color: #f00;"></span>')
+
+      }
+
+  })
+
+}
+
+
+function AJAX_CHECK(){
+  $.ajax({
+    url:'/block/check_admin_swich/',
+    success:function(data){
+      if(data==1){
+          if($('#admin_switch').is(":checked")){
+
+            CHECK_ROLE_FOR_SWITCH(1)
+            SHOW_ADMIN_INTERFACE()
+            DRAG_IN_ALL_VIEW()
+
+          }else{
+            CHECK_ROLE_FOR_SWITCH(2)
+            DRAG_OFF()
+            HIDE_ADMIN_INTERFACE()
+          }
+      }else{
+        alert(" нет прав")
+        $('#admin_switch').prop("checked",false)
+      }
+    }
+  })
+}
+
+
+function  SHOW_ADMIN_INTERFACE(){
+$('.show_adm').fadeIn(600)
+}
+
+function  HIDE_ADMIN_INTERFACE(){
+$('.show_adm').fadeOut(600)
+}
+
+
+
+
+function CHECK_ROLE_FOR_SWITCH(arg){
+  var url = false
+  if(arg ==1){
+    var url = '/block/check_role/?arg=1'
+  }else if(arg == 2){
+    var url = '/block/check_role/?arg=2'
+  }else if(arg == 0){
+    var url = '/block/check_role/'
+  }
+
+  $.ajax({
+    url:url,
+    type:'GET',
+    async:false,
+    dataType:'json',
+    success:function(data){
+      if (data==1){
+        $('#admin_switch').prop('checked',true)
+        SHOW_ADMIN_INTERFACE()
+        DRAG_IN_ALL_VIEW()
+      }else{
+        $('#admin_switch').prop('checked',false)
+        DRAG_OFF()
+        HIDE_ADMIN_INTERFACE()
+      }
+    }
+  })
+
+}
+
+
+
+
+//////////// DOVUMENT READY ////////////////////////
+
+
+$(document).ready(function(){
+
+
+
+
+CHECK_INDICATOR()
+INDICATOR_ALL_VIEW()
+
+
+setTimeout(function(){
+$('.separator_page').css({'top':($('.papper').height()/2-1)})
+
+$('#ckeditor').ckeditor()
+},300)
+
+
+
+$('.show_panel_settings').click(function(){
+  $('.panel_settings').toggleClass('active_panel_settings')
+})
+
+
+          function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+            function(m,key,value) {
+              vars[key] = value;
+            });
+            return vars;
+          }
+
+          var res = getUrlVars()['resolutions']
+
+          $('#resol').val(res)
+          $('#resol').change(function(){
+              var replace = $(this).val()
+              var url = window.location.href
+              var curent = getUrlVars()['resolutions']
+              location.href = url.replace(curent,replace)
+          })
+
+          {% for a in canvas %}
+              var cell_width = {{ a.cell_width }}
+              var cell_height = {{ a.cell_height }}
+              var strip = {{ a.strip_count }}
+              var row = {{ a.row_count }}
+          {% endfor %}
+
+
+
+
+
+
+$('.papper').css({'width':((cell_width*strip)*res/100),'height':((cell_height*row)*res/100)})
+
+  $('.papper').each(function(){
+      var init = $(this).attr('init')
+
+      $.ajax({
+        url:'/block/get_blocks/?id='+init,
+        type:'GET',
+        async:false,
+        dataType:'json',
+        success:function(data){
+
+
+          $.each(data,function(k,v){
+            $('.papper').each(function(){
+              var init2 = $(this).attr('init') // page id
+                if(init2 == v['id_page']){
+                  var task = false;
+                  var content = false;
+                  var font = "100%"
+                  if(v['task']!=''){
+                    //если есть задача для журналиста
+
+                       task = '<div class="task_main" id="task_all_view'+v['id_block']+'">'+
+                      '<span class="author_task">' + v['author'] + '</span>'+
+                      '<div class="task2">' + v['task'] + '</div><hr>'+
+                      '<span style="font-weight:bold">Описание:</span>'+
+                      '<div class="task3">' + v['task_description'] + '</div>'+
+                      '</div>'
+                    //  console.log(task)
+                      font = "70%"
+                  }else{
+                    //если нет задачи для журналиста
+                    //$(this).append('<div class="droped about_droped show_content" init="'+v['id_block']+'" id="'+v['id_block']+'" style="position:absolute;max-width:'+(v['width']*res/100)+'px;min-width:'+(v['width']*res/100)+'px; max-height:'+(v['height']*res/100)+'px;min-height:'+(v['height']*res/100)+'px;top:'+(v['top']*res/100)+'px;left:'+(v['left']*res/100)+'px;background:'+v['color']+'">'+v['title']+'</div>')
+                         task = ''
+                  }
+
+                  if(v['content'] != ''){
+
+                    content = '<div class="label label-default panel_block">'+
+                    '<div class="content_block">'+
+                    '<span init="'+v['id_block']+'" title="Контент" class="glyphicon glyphicon-file show_content" b_width="'+v['width']+'" b_height="'+v['height']+'"></span>'+
+                    '</div>'+
+                    '</div>'
+
+                    //content = '<span class="glyphicon glyphicon-file show_content" init="'+v['id_block']+'" b_width="'+v['width']+'" b_height="'+v['height']+'"></span>'
+                  }else{
+                    content = '<div class="label label-default panel_block"></div>'
+                  }
+
+                  $(this).append('<div class="droped about_droped show_content" b_width="'+v['width']+'" b_height="'+v['height']+'" init="'+v['id_block']+'"  id="'+v['id_block']+'" style="border:none;position:absolute;width:'+(v['width']*res/100)+'px; height:'+(v['height']*res/100)+'px;top:'+(v['top']*res/100)+'px;left:'+(v['left']*res/100)+'px;background:'+v['color']+'">'+
+                  '<span id="title_'+v['id_block']+'" style="font-size:'+font+'">'+v['title']+'</span><br/>'+task+content+
+                  //'+task+'
+                  //'<div class="label label-default panel_block"></div>'+
+                  '</div>')
+
+
+
+
+
+                }
+              })
+          })
+
+        }
+      })
+
+
+
+
+  })
+
+
+
+
+
+
+
+
+
+  $('#admin_switch').change(function(){
+
+
+
+  AJAX_CHECK()
+
+
+  })
+
+
+
+
+
+
+
+
+
+
+
+ SHOW_CONTENT()
+
+  //var val = $('#transperent_block').val()
+  //OPACITY(val)
+//============================
+  var draw_w = $('.draw_div').width(),draw_h = $('.draw_div').height()
+  $('.draw_div').each(function(){
+    $(this).css({'width':(draw_w*res/100)+'px','height':(draw_h*res/100)+'px'})
+  })
+//============================
+
+
+MAIN_RESOLUTION(res)
+
+})
+
+setTimeout(function(){
+  CHECK_ROLE_FOR_SWITCH(0)
+},500)
+
+
+
+
+
+</script>
+
+
+
+
+    </body>
+</html>

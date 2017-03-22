@@ -1,0 +1,280 @@
+{% load static %}
+<html lang="ru">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>12</title>
+
+	<script src="{% static "/tmp/js/jquery.js" %}"></script>
+  <script src="{% static "/tmp/js/jquery.mobile.js" %}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="{% static "/tmp/css/jquery.mobile.css" %}" />
+    <link rel="stylesheet" href="{% static "/tmp/css/jquery.mobile.datepicker.css" %}">
+    <link rel="stylesheet" href="{% static "/tmp/css/jquery.mobile.datepicker.theme.css" %}">
+    <link rel="stylesheet" href="{% static "/tmp/css/theme-template.css" %}">
+    <link rel="stylesheet" href="{% static "/tmp/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "/tmp/css/tasker.css" %}">
+
+
+<link href="https://fonts.googleapis.com/css?family=Sonsie+One" rel="stylesheet">
+
+    <script src="{% static "/tmp/js/jquery.mobile.datepicker.js" %}"></script>
+    <script src="{% static "/tmp/js/datepicker.js" %}"></script>
+    <script src="{% static "/tmp/js/tasker.js" %}"></script>
+
+<style>
+.tasker{
+  font-family: 'Sonsie One', cursive;
+      padding: 5px !important;
+      font-size: 23px !important;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+  <div data-role="page" id="main_page" data-theme="a">
+  	<div data-role="header" data-theme="b">
+  		<h1 id="twi_acc" class="tasker">Tackep</h1>
+      <div style="padding: 7px 15px;color: #f00;font-size: 21px;text-align: center;"  class="ui-btn-right exit"  data-theme="b"><span class="glyphicon glyphicon-off"></span></div>
+
+      <div style="padding:17px" data-icon="arrow-l" data-transition="slide" class="return_plan ui-btn-left ui-link ui-btn ui-btn-b ui-icon-action ui-btn-icon-left ui-shadow ui-corner-all" data-direction="reverse" data-theme="b" data-role="button" role="button"></div>
+  	</div>
+  	<div data-role="content" >
+      <label>Добавить Задачу в:</label>
+  		<ul data-role="listview" id="list_dep" data-inset="true" data-theme="a">
+  			<!--<li><a href="#about">About</a></li>-->
+  		</ul>
+      <br/>
+      <button data-icon="star" id="my_task" >Мои задачи</button>
+
+
+      <div data-role="popup" id="popupBasicTrue" class="accept">
+        <p>Задача успешно добавлена</p>
+      </div>
+
+      <div data-role="popup" id="popupBasicFalse" class="error">
+        <p>Ошибка добавления задачи</p>
+      </div>
+
+  	</div>
+
+  </div>
+
+
+
+
+
+  <div data-role="page" id="mytask" data-theme="a">
+    <div data-role="header" data-theme="b" >
+  		<h1 id="twi_acc2">Мои задачи</h1>
+  	<!--	<a style="padding:17px" href="#main_page" data-icon="arrow-l"  data-transition="slide" class="ui-btn-left" data-direction="reverse" data-theme="b"></a>-->
+
+      <a style="padding:17px" href="#main_page" data-icon="home"  data-transition="slide" class="ui-btn-right" data-direction="reverse" data-theme="b"></a>
+
+  </div>
+
+
+  	<div data-role="content" >
+      <div class="loading"></div>
+      <label for="slider-fill">Выводить по:</label>
+      <input type="range" name="slider-fill" id="setttings-tasks" value="10" min="10" max="50" step="10" data-highlight="true">
+        <a style="padding: 8px;font-size: 13px;position: relative;border: none;display: block;width: 100%;margin: 5px;background:#5cb85c;text-shadow:none;" href="#main_page"  data-transition="slide" class="ui-btn-icon-right ui-icon-carat-r ui-btn-right ui-link ui-btn ui-btn-b ui-shadow ui-corner-all" data-theme="b" data-role="button" role="button">Добавить задачу</a>
+      <div data-role="collapsible-set" data-theme="c" id="tasks_box" data-content-theme="a"></div>
+      <div id="about_tasks" style="display:none;" data-role="button" class="btn form-control">Показать еще</div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+  <div data-role="page" id="bitrix" data-theme="a">
+    <div data-role="header" data-theme="b" >
+  		<h1 id="twi_acc2">Битрикс</h1>
+  	<!--	<a style="padding:17px" href="#main_page" data-icon="arrow-l"  data-transition="slide" class="ui-btn-left" data-direction="reverse" data-theme="b"></a>-->
+
+      <a style="padding:17px" href="#main_page" data-icon="home"  data-transition="slide" class="ui-btn-right" data-direction="reverse" data-theme="b"></a>
+
+  </div>
+
+
+  	<div data-role="content" >
+        <p>Для получения уведомлений о заявленных Вами темах, пожалуйста, укажите Ваш персональный Битрикс24 email.<br><a href="https://docs.google.com/document/d/1RYIAA3jO5z6_UMxstXGxE2dxp4F06Jh4i4QE2bRwyts/edit?usp=sharing">Где взять?</a></p>
+        <input type="text" id="bitrix_account" placeholder="Битрикс24 email"/>
+        <button id="bitrix_btn" class="btn">Отправить</button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div data-role="page" id="edittask" data-theme="a">
+      <div data-role="header" data-theme="b" >
+    		<h1 id="twi_acc2">Редактировать</h1>
+    	<!--	<a style="padding:17px" href="#main_page" data-icon="arrow-l"  data-transition="slide" class="ui-btn-left" data-direction="reverse" data-theme="b"></a>-->
+
+        <a style="padding:17px;background: #5cb85c;" href="#mytask" data-icon="check"  data-transition="pop" class="ui-btn-right" data-direction="reverse" data-theme="b"></a>
+
+    </div>
+
+
+    	<div data-role="content" >
+        <label for="slider-fill">Заголовок</label>
+        <input type="text" id="edit_task_title"/>
+        <label for="slider-fill">Описание</label>
+        <textarea type="text" id="edit_task_description"></textarea>
+        <label for="slider-fill">Количество знаков</label>
+        <input type="number" id="edit_task_count" />
+
+        <br/>
+        <div type="text" class="date_change2" data-theme="b"></div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div data-role="page" id="date" data-theme="a">
+    <div data-role="header" data-theme="b" >
+  		<h1 id="twi_acc2">Выберите дату</h1>
+
+  		<a style="padding:17px" href="#main_page" data-icon="arrow-l"  data-transition="slide" class="ui-btn-left" data-direction="reverse" data-theme="b"></a>
+
+      <a style="padding:17px" href="#main_page" data-icon="home"  data-transition="slide" class="ui-btn-right" data-direction="reverse" data-theme="b"></a>
+
+  </div>
+
+
+  	<div data-role="content" >
+        <div type="text" class="date_change" data-theme="b"  ></div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+    <div data-role="page" id="auth" data-theme="b">
+      <div data-role="header" data-theme="b" >
+    	<h1 id="twi_acc">Авторизация</h1>
+    </div>
+    	<div data-role="content" >
+        <input type="text" name="title" id="login" value="" data-theme="a" placeholder="Логин"/>
+        <input type="password" name="title" id="password" value="" data-theme="a" placeholder="Пароль"/>
+        <!--<button  id="enter" class="btn">Войти</button>-->
+        <a href="#main_page" id="enter" class="btn btn-success form-control"  data-role="button">Войти</a><br><br>
+        <div style="cursor:pointer" class="return_plan" >К списку номеров</div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+<!------------------------------------------------------------------->
+  <div data-role="page" id="title" data-theme="a">
+    <div data-role="header" data-theme="b" >
+  		<h1 id="twi_acc2">Введите заголовок</h1>
+      <a style="padding:17px" href="#date" data-icon="arrow-l"  data-transition="slide" class="ui-btn-left" data-direction="reverse" data-theme="b"></a>
+
+      <a style="padding:17px" href="#main_page" data-icon="home"  data-transition="slide" class="ui-btn-right" data-direction="reverse" data-theme="b"></a>
+
+  	</div>
+
+  	<div data-role="content" >
+
+      	<input type="text" name="title"  autocomplete="off" id="title_field" value="" data-theme="a" placeholder="Заголовок"/>
+
+        <a href="#topic" class="btn btn-success form-control" data-transition="slide" data-role="button">Далее</a>
+    </div>
+
+  </div>
+
+
+
+
+
+
+    <div data-role="page" id="topic" data-theme="a">
+      <div data-role="header" data-theme="b" >
+    		<h1 id="twi_acc2">Введите описание</h1>
+    		<a style="padding:17px" href="#title" data-icon="arrow-l"  data-transition="slide" class="ui-btn-left" data-direction="reverse" data-theme="b"></a>
+
+        <a style="padding:17px" href="#main_page" data-icon="home"  data-transition="slide" class="ui-btn-right" data-direction="reverse" data-theme="b"></a>
+
+        </div>
+
+
+    	<div data-role="content" >
+          <textarea id="description_task" placeholder="Описание"></textarea>
+          <input type="number"  autocomplete="off" id="count_chars" value="" data-theme="a" placeholder="Количество символов"/>
+
+
+      <div id="send" style="background:#5cb85c;color:#fff;text-shadow:none;" class="btn-success form-control ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all btn-success form-control ui-btn-icon-left" data-icon="check" data-transition="slide">Отправить</div>
+
+    </div>
+    </div>
+
+
+
+
+      <div data-role="page" id="check" data-theme="b">
+      	<div data-role="header" data-theme="b" >
+      		<h1 style="color:#f00">Введите:</h1>
+          <a style="padding:17px" href="#topic" data-icon="arrow-l"  data-transition="pop" class="ui-btn-left" data-direction="reverse" data-theme="b"></a>
+
+      	</div>
+      	<div data-role="content" >
+          <ul data-role="listview" id="undefined_list" data-inset="true" data-theme="b">
+      			<!--<li><a href="#about">About</a></li>-->
+      		</ul>
+      	</div>
+      	<div data-role="footer">
+      	</div>
+      </div>
+
+
+
+
+</body>
+</html>

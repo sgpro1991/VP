@@ -1,0 +1,4 @@
+*.pyc
+plan/settings.py
+plan/touch-reload
+configuration.py

@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+
+
+          <div id="dialog"  style="display:none">
+              <input id="create_number" class="form-control" type="hidden" placeholder="Название номера"><br/>
+
+                <div id="datetimepicker1" class="input-append date">
+
+
+
+
+                      <input id="date_create_number" placeholder="ГГГГ-ММ-ДД" type="text" class="form-control" />
+
+                </div>
+
+          </div>
+
+
+
+
+
+
+          <div id="dialog2" style="display:none">
+
+              <!--<input id="create_page" class="form-control" type="text" placeholder="Название страницы"><br/>-->
+              <select id="option_rubric" class="form-control">
+                  <option></option>
+
+<!--                  {% for a in pass_rubric %}
+                    <option>{{a.title}}</option>
+                  {% endfor %}-->
+
+              </select><br/>
+              <input type="number" class="form-control" id="order_init" placeholder="Порядок">
+          </div>
+
+
+
+
+
+
+          <div class="container container_color" style="margin:100px  auto;">
+
+
+
+
+
+
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                    <h3>Все номера</h3>
+                  <ul style="padding:0;">
+                {% for number in all_numbers %}
+                  <li class="li_number">
+                    <a href="/number/number_view/?id={{number.id}}&resolutions=100">
+                        <!-- {{number.title}} -->
+                        {{ number.date | date:"j E Y" }}, {{ number.date | date:"D" | lower }}
+                        <span style="color:#000;font-size:11px;"><!--({{a.date}})--></span>
+                    </a>
+                    <div class="add_page btn btn-default" title="добавить страницу" init="{{number.id}}">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+                  </li>
+                  <!-- <a href="/number/?id={{number.id}}">{{number.title}} <span style="color:#000;font-size:11px;">({{number.date}})</span></a><br/>-->
+                {% endfor%}
+                  </ul>
+            </div>
+
+
+            <div class="col-xs-12 col-sm-12 col-md-6">
+
+
+                <div class="starter-template" style="text-align:center">
+                   <!--<button class="btn btn-success create_number">Создать номер</button>-->
+                </div>
+
+                <div class="right_block">
+
+                </div>
+
+
+
+
+                  <span class="all_view"></span>
+            </div>
+
+
+<!--
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <label >Доступные страницы:</label><br/><br/>
+                {% for a in pass_rubric %}
+                  {{a.title}}<br/>
+                {% endfor %}
+            </div>
+-->
+
+          </div><!-- /container -->
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+      <script>window.jQuery || document.write('<script src="{% static "/tmp/js/vendor/jquery-1.11.2.min.js" %}"><\/script>')</script>
+
+      <script src="{% static "/tmp/js/vendor/bootstrap.min.js" %}"></script>
+
+
+  <!--<script src="{% static "/tmp/js/bootstrap-datetimepicker.min.js" %}"></script>-->
+
+
+
+
+  <script type="text/javascript">
+    $(function() {
+
+      /*$.fn.datetimepicker.dates['ru-RU'] = {
+    		days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+    		daysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+    		daysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+    		months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+    		monthsShort: ["Ян", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Ав", "Сен", "Окт", "Ноя", "Дек"],
+    		today: "Сегодня"
+    	};
+
+      $('#datetimepicker1').datetimepicker({
+        language: 'ru-RU',
+        pick12HourFormat: true
+      });
+      */
+
+      $.datepicker.regional['ru'] = {
+      closeText: 'Закрыть',
+      prevText: '&#x3c;Пред',
+      nextText: 'След&#x3e;',
+      currentText: 'Сегодня',
+      monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+      'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+      monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+      'Июл','Авг','Сен','Окт','Ноя','Дек'],
+      dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+      dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+      dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+      dateFormat: 'dd.mm.yy',
+      firstDay: 1,
+      isRTL: false
+      };
+
+
+      $.datepicker.setDefaults($.datepicker.regional['ru']);
+
+
+
+      $('#date_create_number').datepicker({
+        numberOfMonths: 2,
+         showButtonPanel: true,
+        dateFormat: "yy-mm-dd"
+    });
+
+
+$('.date_create_number').focus(function(){
+
+$("#date_create_number").datepicker("show");
+})
+
+
+
+    });
+
+
+
+
+
+  </script>
+
+
+      <script>
+
+
+
+
+
+
+
+      function CREATE_NUMBER(){
+
+          var date = $('#date_create_number').val()
+
+
+          //if(number != ''){
+            if(date != ''){
+              $('#create_number').val(date)
+
+              var number = $('#create_number').val()
+
+              $.ajax({
+                url:'create_number/?number_title='+number+'&date='+date,
+                type:'GET',
+                success:function(data){
+                  //alert(data)
+                  //location.href = '/number/?id='+data;
+                  //location.href = '/number/?id='+data;
+                  location.href = '/number/number_view/?id=' + data + '&resolutions=100';
+                },statusCode: {
+                403: function(xhr) {
+                  alert('У вас недостаточно прав')
+                  location.reload()
+                  }
+                },statusCode: {
+                400: function(xhr) {
+                  alert('Необходимый формат даты: YYYY-MM-DD')
+                  location.reload()
+                  }
+                }
+              })
+
+            }else{
+              alert('Укажите дату и время номера')
+            }
+
+          //}else{
+        //    alert('Укажите название номера')
+          //}
+
+      }
+
+
+
+
+      function CREATE_PAGE(id){
+
+        var number = $('#create_page').val()
+        var rubric = $('#option_rubric').val()
+        var order = $('#order_init').val()
+
+        //alert(rubric+'||||'+order)
+
+/*
+        $.ajax({
+          url:'/number/get_id_number/',
+          type:'GET',
+          async:false,
+          success:function(data){
+            id = data
+          }
+        })
+*/
+        //if(number != ''){
+          if(rubric!=''){
+            if(order != ''){
+                $.ajax({
+                  url:'create_page/?id='+id+'&rubric='+rubric+'&order='+order,
+                  type:'GET',
+                  success:function(data){
+                    //alert(data)
+                  //  window.location = "/block/?id="+data
+
+                        window.location.reload()
+                  },statusCode: {
+                  500: function(xhr) {
+                    //alert('У вас недостаточно прав')
+                    window.location = "/number/login/"
+
+                    }
+                  }
+                })
+            }else{
+              alert('Укажите порядок')
+            }
+          }else{
+          alert('Выберите рубрику')
+          }
+      //  }else{
+        //  alert('Укажите название страницы')
+        //}
+
+      }
+
+
+
+
+
+function CREATE_NUMBER_CLICK(){
+  $('.create_number').click(function(){
+  var dialog = $( "#dialog" ).dialog({
+      width: 350,
+      modal: true,
+      title: 'Дата выхода',
+      buttons: {
+        "Создать/найти номер": CREATE_NUMBER,
+        "Отмена": function() {
+          dialog.dialog( "close" );
+        }
+      },
+    });
+  })
+}
+
+
+
+
+
+
+
+
+
+
+function GET_CURRENT_NUMBER() {
+
+    $.ajax({
+        url: 'get_ses/',
+        type: 'GET',
+        success: function(data) {
+
+            if (data == '') {
+                $('.starter-template').html('<button class="btn btn-success create_number">Создать / найти номер</button>')
+                CREATE_NUMBER_CLICK()
+            } else {
+
+                $('.starter-template').html('<button class="btn btn-success create_number">Создать / найти номер</button><h1>Номер: '+data+'</h1>')
+
+                CREATE_NUMBER_CLICK()
+
+                /*
+                $('.starter-template').append('<br/><br/><div class="btn-group">'+
+                    '<button id="btnGroupVerticalDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">'+
+                    'Страницы '+
+                    '<span class="caret"></span>'+
+                    '</button>'+
+                    '<ul class="dropdown-menu" role="menu" id="pages_number" aria-labelledby="btnGroupVerticalDrop1">'+
+                    '</ul>'+'</div>')
+                */
+
+                GET_PAGES_FOR_NUMBER({{id_number}})
+
+                $('.add_page').click(function(){
+
+                var id = $(this).attr('init')
+
+                var dialog = $( "#dialog2" ).dialog({
+                width: 350,
+                modal: true,
+                buttons: {
+                "Создать страницу": function(){
+                CREATE_PAGE(id)
+                },
+                "Отмена": function() {
+                dialog.dialog( "close" );
+                }
+                },
+                });
+
+
+                })
+
+            }
+
+        }
+    })
+
+}
+
+
+
+
+
+
+
+
+
+
+
+function GET_PAGES_FOR_NUMBER(arg){
+
+  if(arg != ''){
+    $.ajax({
+      url:'/api/get_pages/?id='+arg,
+      type:'GET',
+      dataType:'json',
+      success:function(data){
+
+      //$('.starter-template').append('<br/><br/><a target="blank" href="/number/number_view/?id='+arg+'&resolutions=100"><button class="btn btn-default">Общий вид</button></a>')
+
+        $.each(data,function(k,v){
+          $('#pages_number').append('<li><a class="sub_list" href="/block/?id='+v['id']+'">'+v['title']+' ('+v['rubric']+') ('+v['order_init']+')</a></li>')
+        })
+
+      }
+    })
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      $(document).ready(function(){
+
+        $('#datetimepicker2').datetimepicker({
+          language: 'en',
+          pick12HourFormat: true
+        });
+
+
+
+
+
+
+
+
+        $('.add_page').click(function(){
+
+          $.ajax({
+            url:'/api/get_rubrics/',
+            dataType:'json',
+            success:function(data){
+              console.log(data)
+
+              $.each(data,function(k,v){
+                $('#option_rubric').append('<option value="'+v['id']+'">'+v['title']+'</option>')
+              })
+
+            }
+          })
+
+
+
+          var id = $(this).attr('init')
+
+          var dialog = $( "#dialog2" ).dialog({
+              width: 350,
+              modal: true,
+              buttons: {
+                "Создать страницу": function(){
+                  CREATE_PAGE(id)
+                },
+                "Отмена": function() {
+                  dialog.dialog( "close" );
+                }
+              },
+            });
+
+
+        })
+
+
+        GET_CURRENT_NUMBER()
+
+
+      })
+      </script>
+{% endblock content %}
