@@ -26,7 +26,6 @@ def ExitUsers(modeladmin, request, queryset):
 
 def SyncLdap(modeladmin, request, queryset):
     #### ПОЛУЧАЕМ JSON С ПОЛЬЗОВАТЕЛЯМИ ИЗ ЛДАПА ########
-    url = "http://auth.oblgazeta.ru/api/1.0/plan2users.php"
     response = urllib.request.urlopen(url)
     data = json.loads(response.read().decode('utf-8'))
     print(data,'-------------------------------------------------->')
