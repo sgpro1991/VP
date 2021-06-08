@@ -2,3 +2,5 @@
 plan/settings.py
 plan/touch-reload
 configuration.py
+[‎12.‎10.‎2020 17:02] Erofeev Sergey (BSS): 
+ktpass -princ HTTP/url-wog-dev01.megafon.ru@MEGAFON.RU -mapuser wog  -out wog.keytab -crypto all -ptype KRB5_NT_PRINCIPAL
